@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Emotion Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">
+                <span class="brand-icon">🎙️</span>
+                <span class="brand-name">Speech Emotion Recognition</span>
+            </div>
+            <nav class="socials">
+                <a href="https://github.com/InfinitePraveen" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://www.linkedin.com/in/infinitepraveen" target="_blank" rel="noopener">LinkedIn</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Detect emotion in a voice clip</h1>
+            <p class="subtitle">
+                Upload a short audio recording and the model will classify it into one of
+                8 emotions using MFCC, Chroma &amp; Mel-spectrogram features fed into a
+                deep neural network.
+            </p>
+        </section>
+
+        <section class="upload-card">
+            <form id="uploadForm">
+                <label for="audioInput" class="dropzone" id="dropzone">
+                    <input type="file" id="audioInput" name="audio_file" accept=".wav,.mp3,.ogg,.flac" hidden>
+                    <span class="dropzone-icon">📂</span>
+                    <span class="dropzone-text" id="dropzoneText">Click to choose an audio file, or drag one here</span>
+                    <span class="dropzone-hint">.wav, .mp3, .ogg, .flac — up to 10 MB</span>
+                </label>
+
+                <div class="sample-row">
+                    <span>No file handy? Try a sample:</span>
+                    <button type="button" class="sample-btn" data-sample="sample_happy.wav">Happy</button>
+                    <button type="button" class="sample-btn" data-sample="sample_sad.wav">Sad</button>
+                    <button type="button" class="sample-btn" data-sample="sample_angry.wav">Angry</button>
+                    <button type="button" class="sample-btn" data-sample="sample_calm.wav">Calm</button>
+                </div>
+
+                <audio id="audioPreview" controls style="display:none;"></audio>
+
+                <button type="submit" class="predict-btn" id="predictBtn" disabled>
+                    Analyze Emotion
+                </button>
+            </form>
+
+            <div id="loading" class="loading" style="display:none;">
+                <div class="spinner"></div>
+                <span>Extracting features and running the model…</span>
+            </div>
+
+            <div id="errorBox" class="error-box" style="display:none;"></div>
+
+            <div id="result" class="result-card" style="display:none;">
+                <div class="result-top">
+                    <div class="result-emoji" id="resultEmoji">🙂</div>
+                    <div>
+                        <div class="result-label" id="resultLabel">happy</div>
+                        <div class="result-confidence" id="resultConfidence">92% confidence</div>
+                    </div>
+                </div>
+                <div class="breakdown" id="breakdown"></div>
+            </div>
+        </section>
+
+        <section class="about-grid">
+            <div class="about-card">
+                <h3>Pipeline</h3>
+                <p>Audio → MFCC / Chroma / Mel features (librosa) → Dense neural network (Keras) → emotion label.</p>
+            </div>
+            <div class="about-card">
+                <h3>Classes</h3>
+                <p>neutral · calm · happy · sad · angry · fearful · disgust · surprised</p>
+            </div>
+            <div class="about-card">
+                <h3>Notebooks</h3>
+                <p>Full data exploration, feature extraction and training walkthrough lives in <code>/notebooks</code>.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>Built by <strong>Praveen</strong> as a portfolio project.</p>
+            <p>
+                <a href="https://github.com/InfinitePraveen" target="_blank" rel="noopener">github.com/InfinitePraveen</a>
+                &nbsp;·&nbsp;
+                <a href="https://www.linkedin.com/in/infinitepraveen" target="_blank" rel="noopener">linkedin.com/in/infinitepraveen</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
